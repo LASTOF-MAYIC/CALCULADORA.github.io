@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Beneficio de Opciones Binarias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #191919;
+            color: #ffffff;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h3 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>CALCULADORA DE BENEFICIOS DE OPCIONES BINARIAS POR CRISTIAN TORRES</h2>
+    <label for="monto_inversion">Monto de inversión $ :</label>
+    <input type="number" id="monto_inversion" placeholder="Ingrese aquí la cantidad de dinero que invierte por operación.">
+    
+    <label for="beneficio_broker">Porcentaje por el Broker % :</label>
+    <input type="number" id="beneficio_broker" placeholder="Este es el rendimiento/retorno de una operación de opciones binarias en su corredor.">
+    
+    <label for="operaciones_ganadoras">Operaciones ganadoras :</label>
+    <input type="number" id="operaciones_ganadoras" placeholder="Introduzca aquí la cantidad de operaciones ganadoras.">
+    
+    <label for="operaciones_perdedoras">Operaciones con pérdidas :</label>
+    <input type="number" id="operaciones_perdedoras" placeholder="Ponga aquí la cantidad de operaciones perdedoras.">
+    
+    <button onclick="calcularBeneficio()">Calcular Beneficio</button>
+    
+    <h3>Resultado :</h3>
+    <p id="resultado"></p>
+    
+    <script>
+        function calcularBeneficio() {
+            var montoInversion = parseFloat(document.getElementById("monto_inversion").value);
+            var beneficioBroker = parseFloat(document.getElementById("beneficio_broker").value);
+            var operacionesGanadoras = parseInt(document.getElementById("operaciones_ganadoras").value);
+            var operacionesPerdedoras = parseInt(document.getElementById("operaciones_perdedoras").value);
+            
+            if (isNaN(montoInversion) || isNaN(beneficioBroker) || isNaN(operacionesGanadoras) || isNaN(operacionesPerdedoras)) {
+                document.getElementById("resultado").innerText = "Por favor, complete todos los campos correctamente.";
+                return;
+            }
+
+            var ganancia = montoInversion * (beneficioBroker / 100);
+            var perdida = montoInversion;
+
+            var totalGanancia = operacionesGanadoras * ganancia;
+            var totalPerdida = operacionesPerdedoras * perdida;
+
+            var beneficioNeto = totalGanancia - totalPerdida;
+
+            document.getElementById("resultado").innerHTML = 
+                "Lucro: $" + totalGanancia.toFixed(2) + "<br>" +
+                "Pérdida: $" + totalPerdida.toFixed(2) + "<br>" +
+                "Resultado general: $" + beneficioNeto.toFixed(2);
+        }
+    </script>
+</body>
+</html>
